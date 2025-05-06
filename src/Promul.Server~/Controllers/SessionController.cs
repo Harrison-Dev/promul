@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Promul.Relay.Server.Models.Sessions;
 using Promul.Relay.Server.Relay;
 
@@ -21,15 +20,11 @@ public class SessionController : ControllerBase
     public SessionInfo CreateSession()
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        //var joinCode = new string(Enumerable.Repeat(chars, 6).Select(s => s[RandomNumberGenerator.GetInt32(s.Length)]).ToArray());
-        var joinCode = "TEST";
+        var joinCode = new string(Enumerable.Repeat(chars, 6).Select(s => s[RandomNumberGenerator.GetInt32(s.Length)]).ToArray());
         _relay.CreateSession(joinCode);
         var sci = new SessionInfo
         {
             JoinCode = joinCode,
-            RelayAddress = "aus628.relays.net.fireworkeyes.com",
-            RelayPort = 15593
         };
 
         _logger.LogInformation("User {}:{} created session with join code {}",
@@ -48,8 +43,6 @@ public class SessionController : ControllerBase
         return new SessionInfo
         {
             JoinCode = session.JoinCode,
-            RelayAddress = "aus628.relays.net.fireworkeyes.com",
-            RelayPort = 15593
         };
     }
 
